@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('Ben');
@@ -11,14 +11,14 @@ export default function App() {
   }
 
   const [people, setPeople] =  useState([
-    {name:'Ben', key: '1'},
-    {name:'Abu', key: '2'},
-    {name:'Eliud', key: '3'},
-    {name:'Mercy', key: '4'},
-    {name:'Faith', key: '5'},
-    {name:'Grace', key: '6'},
-    {name:'Mum', key: '7'},
-    {name:'Dad', key: '8'}
+    {name:'Ben', id: '1'},
+    {name:'Abu', id: '2'},
+    {name:'Eliud', id: '3'},
+    {name:'Mercy', id: '4'},
+    {name:'Faith', id: '5'},
+    {name:'Grace', id: '6'},
+    {name:'Mum', id: '7'},
+    {name:'Dad', id: '8'}
   ]);
 
   return (
@@ -48,7 +48,7 @@ export default function App() {
         style={styles.input} 
         placeholder="Enter Age"
         onChangeText={(val) => setAge(val)}
-        /> */}
+        /> 
       <ScrollView>
       {
         people.map(person=>(
@@ -58,7 +58,16 @@ export default function App() {
         ))
       }
       </ScrollView>
-      
+      */}
+      <FlatList
+        numColumns={2}
+        keyExtractor={(item)=> item.id}
+        data={people}
+        renderItem={({ item })=>(
+          <Text style={styles.persons}>{item.name}</Text>
+        )}
+      />
+
 
       <StatusBar style="auto" />
     </View>
@@ -103,6 +112,8 @@ const styles = StyleSheet.create({
     marginTop: 24,
     padding: 30,
     backgroundColor:'purple',
-    color:'white'
+    color:'white',
+    marginHorizontal:10,
+    width:150
   }
 });
