@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('Ben');
@@ -9,9 +9,21 @@ export default function App() {
   const clickHandler = () =>{
     setName("Bonson");
   }
+
+  const [people, setPeople] =  useState([
+    {name:'Ben', key: '1'},
+    {name:'Abu', key: '2'},
+    {name:'Eliud', key: '3'},
+    {name:'Mercy', key: '4'},
+    {name:'Faith', key: '5'},
+    {name:'Grace', key: '6'},
+    {name:'Mum', key: '7'},
+    {name:'Dad', key: '8'}
+  ]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text style={styles.headerText}>Hello {name}</Text>
       </View>
       <View style={styles.body}>
@@ -36,8 +48,17 @@ export default function App() {
         style={styles.input} 
         placeholder="Enter Age"
         onChangeText={(val) => setAge(val)}
-        />
-
+        /> */}
+      <ScrollView>
+      {
+        people.map(person=>(
+          <View key={person.key}>
+            <Text style={styles.persons}>{person.name}</Text>
+          </View>
+        ))
+      }
+      </ScrollView>
+      
 
       <StatusBar style="auto" />
     </View>
@@ -48,8 +69,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop:40,
+    paddingHorizontal: 20
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   header:{
     backgroundColor: 'purple',
@@ -75,5 +98,11 @@ const styles = StyleSheet.create({
     margin:10,
     width: 300,
     borderRadius:5
+  },
+  persons:{
+    marginTop: 24,
+    padding: 30,
+    backgroundColor:'purple',
+    color:'white'
   }
 });
