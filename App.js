@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import AddTodo from './components/addTodo';
 import Header from './components/header';
 import TodoItem from './components/todoItem';
@@ -18,12 +18,19 @@ export default function App() {
   }
 
   const submitHandler = (text) =>{
-    setTodos((prevTodos)=>{
-      return [
-        {text: text, key: Math.random().toString()},
-        ...prevTodos
-      ]
-    })
+    if(text.length > 2){
+      setTodos((prevTodos)=>{
+        return [
+          {text: text, key: Math.random().toString()},
+          ...prevTodos
+        ]
+      })
+    }else{
+      Alert.alert('Oops!','Todos Must be over 2 Characters long',[
+        {text: 'dismiss', onPress: ()=> console.log('alert closed')}
+      ])
+    }
+    
   }
 
 
